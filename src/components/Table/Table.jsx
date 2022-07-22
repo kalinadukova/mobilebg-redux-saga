@@ -1,7 +1,9 @@
 import MaterialTable from "material-table";
-import React, { useState } from "react";
+import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
+import { selectCars } from "../../reducers/cars/cars.selector";
+import { getCarsStart } from "../../reducers/cars/cars.actions";
 
 import { useEffect } from "react";
 
@@ -38,12 +40,11 @@ export default function Table() {
     { title: "Extras", field: "extras" },
   ];
 
-  const [cars, setCars] = useState();
-
   // const currentUser = useSelector(selectCurrentUser);
-  // const cars = useSelector(selectCars);
+  const cars = useSelector(selectCars);
+  // const [cars, setCars] = useState([]);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // let userInfo;
   // let token;
@@ -53,9 +54,9 @@ export default function Table() {
   //   token = currentUser.jwtToken;
   // }
 
-  // useEffect(() => {
-  //   dispatch(fetchCarsAsync());
-  // }, []);
+  useEffect(() => {
+    dispatch(getCarsStart());
+  }, []);
 
   return (
     <div>

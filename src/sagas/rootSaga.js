@@ -1,5 +1,6 @@
-import { all, fork } from "redux-saga/effects";
+import { all } from "redux-saga/effects";
 import { userSaga } from "../reducers/user/sagas/userSaga";
+import { carsSaga } from "../reducers/cars/sagas/carsSaga";
 // Saga
 // **** TODO: IMPORT SAGA FILES
 // API
@@ -8,7 +9,7 @@ import { userSaga } from "../reducers/user/sagas/userSaga";
  * @return {Object} - return store
  */
 function* rootSaga() {
-  yield all([userSaga()]);
+  yield all([userSaga(), carsSaga()]);
 }
 
 export default rootSaga;

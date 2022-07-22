@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import redirectReducer from "./redirectReducer";
 import { userReducer } from "./user/user.reducer";
+import { carsReducer } from "./cars/cars.reducer";
 
 // TODO:Import reducers
 
@@ -12,6 +13,7 @@ export default function createReducer() {
     // TODO: set reducers
     redirect: redirectReducer,
     user: userReducer,
+    cars: carsReducer,
   });
   return rootReducer;
 }

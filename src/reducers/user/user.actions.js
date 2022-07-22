@@ -2,27 +2,27 @@ import {
   createActionWithPayload,
   createActionWithoutPayload,
 } from "../../utils/reducers";
-import { userTypes } from "./user.types";
+import { USER_TYPES } from "./user.types";
 
 export const signInStart = (userData) =>
-  createActionWithPayload(userTypes.SIGN_IN_START, userData);
+  createActionWithPayload(USER_TYPES.SIGN_IN_START, userData);
 
 export const signInSuccess = (userInfo) =>
-  createActionWithPayload(userTypes.SIGN_IN_SUCCESS, userInfo);
+  createActionWithPayload(USER_TYPES.SIGN_IN_SUCCESS, userInfo);
 
 export const signInFail = (error) =>
-  createActionWithPayload(userTypes.SIGN_IN_FAILED, error);
+  createActionWithPayload(USER_TYPES.SIGN_IN_FAILED, error);
 
 // export const signUpStart = () =>
-//   createActionWithoutPayload(userTypes.SIGN_UP_START);
+//   createActionWithoutPayload(USER_TYPES.SIGN_UP_START);
 
 export const signUpSuccess = () =>
-  createActionWithoutPayload(userTypes.SIGN_UP_SUCCESS);
+  createActionWithoutPayload(USER_TYPES.SIGN_UP_SUCCESS);
 
 export const signUpFail = () =>
-  createActionWithoutPayload(userTypes.SIGN_UP_FAILED);
+  createActionWithoutPayload(USER_TYPES.SIGN_UP_FAILED);
 
 export const signUpAction = (userInfo) =>
-  createActionWithPayload(userTypes.SIGN_UP, userInfo);
+  createActionWithPayload(USER_TYPES.SIGN_UP, userInfo);
 
-export const logoutAction = () => createActionWithoutPayload(userTypes.lOGOUT);
+export const logoutAction = () => createActionWithoutPayload(USER_TYPES.lOGOUT);

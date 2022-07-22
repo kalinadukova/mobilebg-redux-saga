@@ -1,4 +1,4 @@
-import { userTypes } from "./user.types";
+import { USER_TYPES } from "./user.types";
 
 const initialState = {
   loading: false,
@@ -12,47 +12,47 @@ export const userReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case userTypes.SIGN_IN_START: {
+    case USER_TYPES.SIGN_IN_START: {
       return {
         loading: true,
         ...state,
       };
     }
-    case userTypes.SIGN_IN_SUCCESS: {
+    case USER_TYPES.SIGN_IN_SUCCESS: {
       return {
         loading: false,
         ...state,
         currentUser: payload,
       };
     }
-    case userTypes.SIGN_IN_FAILED: {
+    case USER_TYPES.SIGN_IN_FAILED: {
       return {
         loading: false,
         ...state,
         error: payload,
       };
     }
-    case userTypes.SIGN_UP_START: {
+    case USER_TYPES.SIGN_UP_START: {
       return {
         loading: true,
         ...state,
       };
     }
-    case userTypes.SIGN_UP_SUCCESS: {
+    case USER_TYPES.SIGN_UP_SUCCESS: {
       return {
         loading: false,
         ...state,
         currentUser: payload,
       };
     }
-    case userTypes.SIGN_UP_FAILED: {
+    case USER_TYPES.SIGN_UP_FAILED: {
       return {
         loading: false,
         ...state,
         error: payload,
       };
     }
-    case userTypes.lOGOUT: {
+    case USER_TYPES.lOGOUT: {
       return {
         ...state,
         currentUser: {

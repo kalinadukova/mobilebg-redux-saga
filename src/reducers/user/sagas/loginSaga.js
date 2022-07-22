@@ -2,10 +2,9 @@ import { put, takeLatest, call } from "redux-saga/effects";
 
 import * as actions from "../user.actions";
 import { login } from "../../../utils/requests";
-import { userTypes } from "../user.types";
+import { USER_TYPES } from "../user.types";
 
-export function* onLoginAsync({ payload: userData }) {
-  console.log("HERE2");
+function* onLoginAsync({ payload: userData }) {
   try {
     const userInfo = yield call(login, userData);
     yield put(actions.signInSuccess(userInfo));
@@ -15,6 +14,5 @@ export function* onLoginAsync({ payload: userData }) {
 }
 
 export function* onLoginUserSaga() {
-  console.log("onLoginUserSaga");
-  yield takeLatest(userTypes.SIGN_IN_START, onLoginAsync);
+  yield takeLatest(USER_TYPES.SIGN_IN_START, onLoginAsync);
 }
