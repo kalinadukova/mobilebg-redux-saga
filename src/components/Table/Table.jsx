@@ -3,7 +3,14 @@ import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { selectCars } from "../../reducers/cars/cars.selector";
-import { getCarsStart } from "../../reducers/cars/cars.actions";
+import {
+  getCarsStart,
+  postCarsStart,
+  deleteCarStart,
+  putCarsStart,
+} from "../../reducers/cars/cars.actions";
+
+import { selectCurrentUser } from "../../reducers/user/user.selectors";
 
 import { useEffect } from "react";
 
@@ -40,19 +47,18 @@ export default function Table() {
     { title: "Extras", field: "extras" },
   ];
 
-  // const currentUser = useSelector(selectCurrentUser);
+  const currentUser = useSelector(selectCurrentUser);
   const cars = useSelector(selectCars);
-  // const [cars, setCars] = useState([]);
 
   const dispatch = useDispatch();
 
-  // let userInfo;
-  // let token;
+  let userInfo;
+  let token;
 
-  // if (currentUser.user) {
-  //   userInfo = currentUser.user;
-  //   token = currentUser.jwtToken;
-  // }
+  if (currentUser.user) {
+    userInfo = currentUser.user;
+    token = currentUser.jwtToken;
+  }
 
   useEffect(() => {
     dispatch(getCarsStart());
@@ -73,37 +79,35 @@ export default function Table() {
         //     disabled: rowData.user.id !== userInfo.id,
         //   }),
         // ]}
-        // editable={{
-        //   onRowAdd: userInfo
-        //     ? (newData) =>
-        //         new Promise((resolve, reject) => {
-        //           const requestData = {
-        //             ...newData,
-        //             user: userInfo,
-        //           };
-        //           console.log(requestData);
-        //           dispatch(postCarsAsync(requestData, token, cars));
-        //           resolve();
-        //         })
-        //     : null,
-        //   onRowDelete: userInfo
-        //     ? (oldData) =>
-        //         new Promise((resolve, reject) => {
-        //           dispatch(
-        //             deleteCarsAsync(oldData.id, userInfo.id, token, cars)
-        //           );
-        //           resolve();
-        //         })
-        //     : null,
-
-        //   onRowUpdate: currentUser.user
-        //     ? (newData, oldData) =>
-        //         new Promise((resolve, reject) => {
-        //           dispatch(updateCarsAsync(newData, userInfo.id, token, cars));
-        //           resolve();
-        //         })
-        //     : null,
-        // }}
+        editable={{
+          onRowAdd: userInfo
+            ? (newData) =>
+                new Promise((resolve, reject) => {
+                  const requestData = {
+                    ...newData,
+                    user: userInfo,
+                  };
+                  dispatch(postCarsStart(requestData, token, cars));
+                  resolve();
+                })
+            : null,
+          onRowDelete: userInfo
+            ? (oldData) =>
+                new Promise((resolve, reject) => {
+                  dispatch(
+                    deleteCarStart(oldData.id, userInfo.id, token, cars)
+                  );
+                  resolve();
+                })
+            : null,
+          onRowUpdate: userInfo
+            ? (newData) =>
+                new Promise((resolve, reject) => {
+                  dispatch(putCarsStart(newData, userInfo.id, token, cars));
+                  resolve();
+                })
+            : null,
+        }}
       />
     </div>
   );

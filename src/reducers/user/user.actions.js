@@ -4,6 +4,7 @@ import {
 } from "../../utils/reducers";
 import { USER_TYPES } from "./user.types";
 
+//login
 export const signInStart = (userData) =>
   createActionWithPayload(USER_TYPES.SIGN_IN_START, userData);
 
@@ -13,16 +14,15 @@ export const signInSuccess = (userInfo) =>
 export const signInFail = (error) =>
   createActionWithPayload(USER_TYPES.SIGN_IN_FAILED, error);
 
-// export const signUpStart = () =>
-//   createActionWithoutPayload(USER_TYPES.SIGN_UP_START);
+//register
+export const signUpStart = (userData) =>
+  createActionWithPayload(USER_TYPES.SIGN_UP_START, userData);
 
-export const signUpSuccess = () =>
-  createActionWithoutPayload(USER_TYPES.SIGN_UP_SUCCESS);
+export const signUpSuccess = (userInfo) =>
+  createActionWithPayload(USER_TYPES.SIGN_UP_SUCCESS, userInfo);
 
-export const signUpFail = () =>
-  createActionWithoutPayload(USER_TYPES.SIGN_UP_FAILED);
+export const signUpFail = (error) =>
+  createActionWithPayload(USER_TYPES.SIGN_UP_FAILED, error);
 
-export const signUpAction = (userInfo) =>
-  createActionWithPayload(USER_TYPES.SIGN_UP, userInfo);
-
+//logout
 export const logoutAction = () => createActionWithoutPayload(USER_TYPES.lOGOUT);

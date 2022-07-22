@@ -8,10 +8,10 @@ function* onGetCarsAsync() {
     const cars = yield call(getCarsArray);
     yield put(getCarsSuccess(cars));
   } catch (error) {
-    yield put(getCarsFailed(error.message));
+    yield put(getCarsFailed(error));
   }
 }
 
-export function* onGetCarsSaga() {
+export function* onGetCarsStart() {
   yield takeLatest(CAR_TYPES.CAR_FETCHING_START, onGetCarsAsync);
 }

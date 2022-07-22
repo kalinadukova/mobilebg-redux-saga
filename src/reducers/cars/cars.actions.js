@@ -4,12 +4,6 @@ import {
   createActionWithPayload,
   createActionWithoutPayload,
 } from "../../utils/reducers";
-import {
-  getCarsArray,
-  addCar,
-  deleteCar,
-  updateCar,
-} from "../../utils/requests";
 
 const addCarArray = (newCarData, cars) => {
   cars.push(newCarData);
@@ -35,8 +29,12 @@ export const getCarsFailed = (error) =>
   createActionWithPayload(CAR_TYPES.CAR_FETCHING_FAILED, error);
 
 //post request actions
-export const postCarsStart = () =>
-  createActionWithoutPayload(CAR_TYPES.CAR_POST_START);
+export const postCarsStart = (requestData, token, cars) =>
+  createActionWithPayload(CAR_TYPES.CAR_POST_START, {
+    requestData,
+    token,
+    cars,
+  });
 
 export const postCarsSuccess = (newCarData, cars) =>
   createActionWithPayload(
@@ -44,12 +42,17 @@ export const postCarsSuccess = (newCarData, cars) =>
     addCarArray(newCarData, cars)
   );
 
-export const postCarsFailed = () =>
-  createActionWithoutPayload(CAR_TYPES.CAR_POST_FAILED);
+export const postCarsFailed = (error) =>
+  createActionWithPayload(CAR_TYPES.CAR_POST_FAILED, error);
 
 //put request actions
-export const putCarsStart = () =>
-  createActionWithoutPayload(CAR_TYPES.CAR_PUT_START);
+export const putCarsStart = (newData, userId, token, cars) =>
+  createActionWithPayload(CAR_TYPES.CAR_PUT_START, {
+    newData,
+    userId,
+    token,
+    cars,
+  });
 
 export const putCarsSuccess = (newCarData, cars) =>
   createActionWithPayload(
@@ -57,15 +60,23 @@ export const putCarsSuccess = (newCarData, cars) =>
     updateCarArray(newCarData, cars)
   );
 
-export const putCarsFailed = () =>
-  createActionWithoutPayload(CAR_TYPES.CAR_PUT_FAILED);
+export const putCarsFailed = (error) =>
+  createActionWithPayload(CAR_TYPES.CAR_PUT_FAILED, error);
 
 //delete request actions
-export const deleteCarStart = () =>
-  createActionWithoutPayload(CAR_TYPES.CAR_DELETE_START);
+export const deleteCarStart = (carId, userId, token, cars) =>
+  createActionWithPayload(CAR_TYPES.CAR_DELETE_START, {
+    carId,
+    userId,
+    token,
+    cars,
+  });
 
 export const deleteCarSuccess = (carId, cars) =>
   createActionWithPayload(
     CAR_TYPES.CAR_DELETE_SUCCESS,
     cars.filter((car) => car.id !== carId)
   );
+
+export const deleteCarFailed = (error) =>
+  createActionWithPayload(CAR_TYPES.CAR_DELETE_FAILED, error);

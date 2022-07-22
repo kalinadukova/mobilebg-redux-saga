@@ -1,16 +1,19 @@
-import { put, take, call } from "redux-saga/effects";
-import * as actions from "../user.actions";
+import { put, takeLatest, call } from "redux-saga/effects";
+import { signUpFail, signUpSuccess } from "../user.actions";
 import { register } from "../../../utils/requests";
+import { USER_TYPES } from "../user.types";
 
-function* registerAsync(userData) {
+function* registerAsync({ payload: userData }) {
   try {
+    console.log("here1");
     const userInfo = yield call(register, userData);
-    put(actions.signUpSuccess(userInfo));
+    console.log("here2");
+    yield put(signUpSuccess(userInfo));
   } catch (error) {
-    put(actions.signUpFail(error.message));
+    yield put(signUpFail(error));
   }
 }
 
-export function* watchRegister(userData) {
-  take(registerAsync, userData);
+export function* onRegisterUserStart() {
+  yield takeLatest(USER_TYPES.SIGN_UP_START, registerAsync);
 }

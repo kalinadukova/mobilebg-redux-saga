@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import {
+  selectIsLogged,
+  selectUserError,
+} from "../../reducers/user/user.selectors";
+
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { loginValidation } from "../../utils/validation";
 
@@ -15,6 +20,8 @@ import { signInStart } from "../../reducers/user/user.actions";
 export default function LoginForm() {
   const [error, setError] = useState();
   const dispatch = useDispatch();
+  let isLoggedIn = useSelector(selectIsLogged);
+  let history = useHistory();
 
   async function onHandleSubmit(event) {
     event.preventDefault();
@@ -27,7 +34,9 @@ export default function LoginForm() {
     try {
       const validation = loginValidation(username, password);
 
-      if (validation) setError(validation);
+      if (validation) {
+        throw new Error(validation);
+      }
 
       const userData = {
         username,
@@ -35,8 +44,13 @@ export default function LoginForm() {
       };
 
       dispatch(signInStart(userData));
-
-      event.target.reset();
+      if (isLoggedIn) {
+        history.push("/cars");
+        event.target.reset();
+      }
+      //  else {
+      //   setError(userError);
+      // }
     } catch (error) {
       setError(error.message);
     }

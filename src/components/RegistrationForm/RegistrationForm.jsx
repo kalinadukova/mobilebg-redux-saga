@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { registerValidation } from "../../utils/validation";
+import { signUpStart } from "../../reducers/user/user.actions";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -9,6 +11,7 @@ import { Link } from "react-router-dom";
 import "./RegistrationForm.scss";
 
 export default function RegistrationForm() {
+  const dispatch = useDispatch();
   const [error, setError] = useState();
 
   async function onHandleSubmit(event) {
@@ -22,21 +25,15 @@ export default function RegistrationForm() {
     const password = formData.get("password");
 
     try {
-      if (
-        firstName === "" ||
-        lastName === "" ||
-        username === "" ||
-        password === ""
-      ) {
-        throw new Error("All fields must be field!");
-      }
+      let validation = registerValidation(
+        firstName,
+        lastName,
+        username,
+        password
+      );
 
-      if (username.length < 6) {
-        throw new Error("Username must be at least 6 characters!");
-      }
-
-      if (password.length < 6) {
-        throw new Error("Password must be at least 6 characters!");
+      if (validation) {
+        throw new Error(validation);
       }
 
       const userData = {
@@ -46,12 +43,9 @@ export default function RegistrationForm() {
         lastName,
       };
 
-      event.target.reset();
+      dispatch(signUpStart(userData));
 
-      // const userInfo = await login({
-      //   username,
-      //   password,
-      // });
+      event.target.reset();
     } catch (error) {
       setError(error.message);
     }

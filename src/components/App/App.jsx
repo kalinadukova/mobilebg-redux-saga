@@ -12,8 +12,8 @@ import CustomRedirect from "../CustomRedirect/CustomRedirect";
 // TODO: IMPORT PAGES TO WHICH USER WILL BE REDIRECT
 
 function App() {
-  const userSessionInfo = useSelector((state) => state.userSession);
-  // const isUserLoggedIn = userSessionInfo.isLoggedIn;
+  const userSessionInfo = useSelector((state) => state.user);
+  const isUserLoggedIn = userSessionInfo.isLoggedIn;
 
   let windowLocation = window.location;
   let windowURL = windowLocation.pathname;
@@ -21,13 +21,14 @@ function App() {
   return (
     <div className="App">
       <CustomRedirect />
-      {/* {isUserLoggedIn && (windowURL === '/login' || windowURL === '/register') ? (
+      {isUserLoggedIn &&
+      (windowURL === "/login" || windowURL === "/register") ? (
         <Redirect to="/cars" />
-      ) : null} */}
+      ) : null}
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/catalog" component={Home} />
+        <Route path="/cars" component={Home} />
         <Route exact path="/home" component={Home} />
         <Redirect push exact from="/" to="/home" />
       </Switch>
