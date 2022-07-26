@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { registerValidation } from "../../utils/validation";
 import { signUpStart } from "../../reducers/user/user.actions";
+
+import { selectUserError } from "../../reducers/user/user.selectors";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -13,6 +15,11 @@ import "./RegistrationForm.scss";
 export default function RegistrationForm() {
   const dispatch = useDispatch();
   const [error, setError] = useState();
+  const registrationError = useSelector(selectUserError);
+
+  useEffect(() => {
+    setError("");
+  }, []);
 
   async function onHandleSubmit(event) {
     event.preventDefault();
@@ -44,6 +51,10 @@ export default function RegistrationForm() {
       };
 
       dispatch(signUpStart(userData));
+
+      if (registrationError) {
+        setError(registrationError);
+      }
 
       event.target.reset();
     } catch (error) {

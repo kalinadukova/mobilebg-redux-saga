@@ -16,12 +16,19 @@ import carImg from "../../resources/car-img.png";
 import "./LoginForm.scss";
 
 import { signInStart } from "../../reducers/user/user.actions";
+import { useEffect } from "react";
 
 export default function LoginForm() {
   const [error, setError] = useState();
   const dispatch = useDispatch();
+
   let isLoggedIn = useSelector(selectIsLogged);
+  let loginError = useSelector(selectUserError);
   let history = useHistory();
+
+  useEffect(() => {
+    setError("");
+  }, []);
 
   async function onHandleSubmit(event) {
     event.preventDefault();
@@ -48,9 +55,10 @@ export default function LoginForm() {
         history.push("/cars");
         event.target.reset();
       }
-      //  else {
-      //   setError(userError);
-      // }
+
+      if (!isLoggedIn && loginError) {
+        setError(loginError);
+      }
     } catch (error) {
       setError(error.message);
     }

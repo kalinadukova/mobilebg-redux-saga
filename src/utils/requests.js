@@ -9,26 +9,18 @@ export async function register(userData) {
     body: JSON.stringify(userData),
   };
 
-  console.log(options);
-
   try {
     const res = await fetch("http://207.154.210.226/users/register", options);
 
-    console.log(res);
-
     if (res.status !== 200) {
       console.log(res.status);
-      throw new Error("Registration fail");
+      throw new Error("User already exists");
     }
-
-    console.log(res);
 
     const loginUserInfo = await login({
       username: userData.username,
       password: userData.password,
     });
-
-    console.log(loginUserInfo);
 
     return loginUserInfo;
   } catch (error) {
@@ -60,8 +52,6 @@ export async function login(userData) {
     const userInfo = await res.json();
     return userInfo;
   } catch (error) {
-    console.log(error.message);
-
     throw error.message;
   }
 }

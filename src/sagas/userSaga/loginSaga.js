@@ -10,7 +10,6 @@ function* onLoginAsync({ payload: { username, password } }) {
     const userInfo = yield call(login, { username, password });
     yield put(signInSuccess(userInfo));
   } catch (error) {
-    console.log(error);
     yield put(signInFail(error));
   }
 }
