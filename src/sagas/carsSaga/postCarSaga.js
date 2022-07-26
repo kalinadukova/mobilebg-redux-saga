@@ -1,7 +1,10 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import { CAR_TYPES } from "../cars.types";
-import { postCarsSuccess, postCarsFailed } from "../cars.actions";
-import { addCar } from "../../../utils/requests";
+import { CAR_TYPES } from "../../reducers/cars/cars.types";
+import {
+  postCarsSuccess,
+  postCarsFailed,
+} from "../../reducers/cars/cars.actions";
+import { addCar } from "../../utils/requests";
 
 function* addCarAsync({ payload: { requestData, token, cars } }) {
   try {

@@ -1,7 +1,10 @@
 import { put, takeLatest, call } from "redux-saga/effects";
-import { CAR_TYPES } from "../cars.types";
-import { deleteCarFailed, deleteCarSuccess } from "../cars.actions";
-import { deleteCar } from "../../../utils/requests";
+import { CAR_TYPES } from "../../reducers/cars/cars.types";
+import {
+  deleteCarFailed,
+  deleteCarSuccess,
+} from "../../reducers/cars/cars.actions";
+import { deleteCar } from "../../utils/requests";
 
 function* deleteCarAsync({ payload: { carId, userId, token, cars } }) {
   try {

@@ -1,6 +1,6 @@
 import { all } from "redux-saga/effects";
-import { userSaga } from "../reducers/user/sagas/userSaga";
-import { carsSaga } from "../reducers/cars/sagas/carsSaga";
+import { carsSaga } from "./carsSaga/carsSaga";
+import { userSaga } from "./userSaga/userSaga";
 // Saga
 // **** TODO: IMPORT SAGA FILES
 // API

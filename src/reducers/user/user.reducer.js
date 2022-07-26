@@ -35,6 +35,7 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         error: payload,
         loading: false,
+        isLoggedIn: false,
       };
     }
     case USER_TYPES.lOGOUT: {

@@ -1,7 +1,7 @@
 import { put, takeLatest, call } from "redux-saga/effects";
-import { signInFail, signInSuccess } from "../user.actions";
-import { login } from "../../../utils/requests";
-import { USER_TYPES } from "../user.types";
+import { signInFail, signInSuccess } from "../../reducers/user/user.actions";
+import { login } from "../../utils/requests";
+import { USER_TYPES } from "../../reducers/user/user.types";
 
 function* onLoginAsync({ payload: { username, password } }) {
   console.log(username);
